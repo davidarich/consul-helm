@@ -77,6 +77,10 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
             - name: NAMESPACE
               valueFrom:
                 fieldRef:
@@ -96,7 +100,7 @@ spec:
               CONSUL_FULLNAME="{{template "consul.fullname" . }}"
 
               exec /bin/consul agent \
-                -advertise="${POD_IP}" \
+                -advertise="${HOST_IP}" \
                 -bind=0.0.0.0 \
                 -bootstrap-expect={{ .Values.server.bootstrapExpect }} \
                 -client=0.0.0.0 \
@@ -141,17 +145,22 @@ spec:
                 - consul leave
           ports:
             - containerPort: 8500
+              hostPort: 8500
               name: http
             - containerPort: 8301
+              hostPort: 8301
               name: serflan
             - containerPort: 8302
+              hostPort: 8302
               name: serfwan
             - containerPort: 8300
+              hostPort: 8300
               name: server
             - containerPort: 8600
               name: dns-tcp
               protocol: "TCP"
             - containerPort: 8600
+              hostPort: 8600
               name: dns-udp
               protocol: "UDP"
           readinessProbe:
