@@ -149,10 +149,20 @@ spec:
               name: http
             - containerPort: 8301
               hostPort: 8301
-              name: serflan
+              name: serflan-tcp
+              protocol: "TCP"
+            - containerPort: 8301
+              hostPort: 8301
+              name: serflan-udp
+              protocol: "UDP"
             - containerPort: 8302
               hostPort: 8302
-              name: serfwan
+              name: serfwan-tcp
+              protocol : "TCP"
+            - containerPort: 8302
+              hostPort: 8302
+              name: serfwan-wan
+              protocol : "UDP"
             - containerPort: 8300
               hostPort: 8300
               name: server
