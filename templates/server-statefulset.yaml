@@ -73,10 +73,6 @@ spec:
         - name: consul
           image: "{{ default .Values.global.image .Values.server.image }}"
           env:
-            - name: POD_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
             - name: HOST_IP
               valueFrom:
                 fieldRef:
@@ -161,7 +157,7 @@ spec:
               protocol : "TCP"
             - containerPort: 8302
               hostPort: 8302
-              name: serfwan-wan
+              name: serfwan-udp
               protocol : "UDP"
             - containerPort: 8300
               hostPort: 8300
